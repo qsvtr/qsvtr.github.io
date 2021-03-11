@@ -47,6 +47,8 @@ const main = async (address) => {
         return
     }
 
+    //let t = await getTransactions("0xe35c047764766f3c51bc4a52e7262e64c72e22e8")
+
     let total_fees = 0
     let total_fees_failed = {number:0, gas:0}
     transactions.data.items.forEach(el => {
