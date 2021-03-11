@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>AVAX Fees</title>
+    <link href="css/nes.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+          crossorigin="anonymous"/>
+    <link rel="icon" href="assets/favicon.png">
+</head>
+<body>
+
+<div id="nescss">
+    <header id="nav_bar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="https://qsvtr.github.io/avax-fees">
+                    <img style="vertical-align: middle;" src="assets/avax_16.png" alt="avax-icon">
+                    <h3 style="display: inline-block;">AVAX Fees v0.1</h3>
+                </a>
+                <p>Discover your fees </p>
+            </div>
+
+            <div class="social-buttons">
+                <p>Share the app</p>
+                <div class="share">
+
+                    <a href="http://twitter.com/share?text=Hey, do you know how much you pay fees on Avalanche?&url=https://qsvtr.github.io/avax-fees&hashtags=Avalanche,AVAX" target="_blank"><img src="assets/twitter_16.png" alt="twitter"></a>
+                    <a href="https://t.me/avalancheavax" target="_blank"><img src="assets/telegram_16.png" alt="telegram"></a>
+                    <a href="https://chat.avax.network/" target="_blank"><img src="assets/discord_16.png" alt="discord"></a>
+                    <a href="https://github.com/qsvtr/qsvtr.github.io" target="_blank"><img src="assets/github_16.png" alt="github"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="main-content">
+            <section class="infos"></section>
+
+            <section class="error"></section>
+
+            <section class="address_section"></section>
+
+            <section class="fees_topic" style="display:none">
+                <section class="showcase">
+                    <section class="nes-container with-title">
+                        <h1 class="title">Fees</h1>
+                        <section id="fees_box">
+                            <div class="lists">
+                                <ul class="nes-list is-circle">
+                                    <li>Total fees: <span class="total_fees">loading...</span> </li>
+                                    <li>Total failed: <span class="total_failed">loading...</span></li>
+                                </ul>
+                            </div>
+                            <br/>
+                            <p>* at current price: <span class="price">loading...</span></p>
+                            <span id="download"></span>
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+            <section class="tokens_topic" style="display:none">
+                <section class="showcase">
+                    <section class="nes-container with-title">
+                        <h1 class="title">Tokens</h1>
+                        <a href="#" class="nes-badge" style="width: 15em"><span class="is-primary">in development</span></a>
+<!--
+                        <div id="tables" class="item">
+                            <div class="nes-table-responsive">
+                                <table class="nes-table is-bordered is-centered">
+                                    <thead>
+                                    <tr>
+                                        <th>token name</th>
+                                        <th>quantity</th>
+                                        <th>price unity</th>
+                                        <th>total</th>
+                                        <th>check on Coingecko</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>PNG</td>
+                                        <td>6</td>
+                                        <td>$5.34</td>
+                                        <td>$32.04</td>
+                                        <td>here</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <span class="nes-text is-warning">the prices of tokens not listed on Coingecko can't be displayed.</span>
+                            </div>
+                        </div>
+                        -->
+                    </section>
+                </section>
+            </section>
+        </main>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<!--<script src="js/web3.min.js"></script>-->
+<script>
+    $(window).scroll(function () {
+        const scroll = $(window).scrollTop();
+        scroll > 50 ? $("#nav_bar").addClass("sticky") : $("#nav_bar").removeClass("sticky")
+    });
+
+    window.addEventListener('load', async () => {
+        $(".infos").html('<h2>Connecting to Metamask...</h2>')
+        const params = getUrlVars();
+        const address = params.address || params.a || null;
+        if (!address) {
+            if (window.hasOwnProperty("ethereum") && window.ethereum.hasOwnProperty("isMetaMask")) {
+                const addresses = await ethereum.request({method: 'eth_requestAccounts'});
+                $('.address_section').html(`<br/><p>Connected to <span id="address"><b>${addresses[0]}</b></span></p><br/>`)
+                $(".infos").html('')
+                $(".fees_topic").css('display', 'block');
+                $(".tokens_topic").css('display','block');
+                await main(addresses[0])
+            } else {
+                $(".infos").html('')
+                $('.error').html('<h2>Oops you need to install <a target="_blank" href="https://metamask.io/">MetaMask</a> before!</h2>')
+            }
+        }
+    });
+</script>
+</body>
+<footer>
+    <p>
+        <span>2021 - Powered by <a target="_blank" href="https://www.covalenthq.com/">Covalent</a> and <a
+                target="_blank" href="https://www.coingecko.com/">Coingecko</a> API with ❤️ - <a target="_blank"
+                                                                                                 href="https://twitter.com/qsvtr">@qsvtr</a></span><br/>
+        <span>template used: <a target="_blank" href="https://github.com/nostalgic-css/NES.css">NES.css</a></span>
+    </p>
+</footer>
+</html>
