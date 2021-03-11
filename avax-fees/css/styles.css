@@ -293,6 +293,20 @@ td {
     vertical-align: middle;
 }
 
+/* https://stackoverflow.com/questions/13014808/is-there-anyway-to-animate-an-ellipsis-with-css-animations */
+.loading::after {
+    display: inline-block;
+    animation: dotty steps(1,end) 1s infinite;
+    content: '';
+}
+@keyframes dotty {
+    0%   { content: ''; }
+    25%  { content: '.'; }
+    50%  { content: '..'; }
+    75%  { content: '...'; }
+    100% { content: ''; }
+}
+
 @media screen and (max-width: calc(980px - 4rem)) {
     header > .container {
         margin: 0 4rem;

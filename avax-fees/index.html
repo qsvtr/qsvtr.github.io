@@ -40,8 +40,6 @@
         <main class="main-content">
             <section class="infos"></section>
 
-            <section class="error"></section>
-
             <section class="address_section"></section>
 
             <section class="fees_topic" style="display:none">
@@ -50,13 +48,13 @@
                         <h1 class="title">Fees</h1>
                         <section id="fees_box">
                             <div class="lists">
-                                <ul class="nes-list is-circle">
-                                    <li>Total fees: <span class="total_fees">loading...</span> </li>
-                                    <li>Total failed: <span class="total_failed">loading...</span></li>
+                                <ul class="nes-list is-disc">
+                                    <li>Total fees: <span class="total_fees">loading<span class="loading"></span></span> </li>
+                                    <li>Total failed: <span class="total_failed">loading<span class="loading"></span></span></li>
                                 </ul>
                             </div>
                             <br/>
-                            <p>* at current price: <span class="price">loading...</span></p>
+                            <p>* at current price: <span class="price">loading<span class="loading"></span></span></p>
                             <span id="download"></span>
                         </section>
                     </section>
@@ -99,6 +97,22 @@
                     </section>
                 </section>
             </section>
+
+            <section class="fees_topic" style="display:none">
+                <section class="showcase">
+                    <section class="nes-container with-title">
+                        <h1 class="title">Roadmap</h1>
+                        <div class="lists">
+                            <ul class="nes-list is-disc">
+                                <li>get price of AVAX at time of transaction</li>
+                                <li>list transactions and type</li>
+                                <li>add the list of tokens in the wallet (but need token to be listed on Coingecko)</li>
+                                <li>do the same for X-Chain</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+            </section>
         </main>
     </div>
 </div>
@@ -113,22 +127,27 @@
     });
 
     window.addEventListener('load', async () => {
-        $(".infos").html('<h2>Connecting to Metamask...</h2>')
+        $(".infos").html('<h2>Connecting to Metamask<span class="loading"></span></h2>')
         const params = getUrlVars();
-        const address = params.address || params.a || null;
+        let address = params.address || params.a || null;
         if (!address) {
             if (window.hasOwnProperty("ethereum") && window.ethereum.hasOwnProperty("isMetaMask")) {
                 const addresses = await ethereum.request({method: 'eth_requestAccounts'});
-                $('.address_section').html(`<br/><p>Connected to <span id="address"><b>${addresses[0]}</b></span></p><br/>`)
-                $(".infos").html('')
-                $(".fees_topic").css('display', 'block');
-                $(".tokens_topic").css('display','block');
-                await main(addresses[0])
+                address = addresses[0]
             } else {
-                $(".infos").html('')
-                $('.error').html('<h2>Oops you need to install <a target="_blank" href="https://metamask.io/">MetaMask</a> before!</h2>')
+                console.log('no metamask no address')
+                $('.infos').html('<h2>Oops you need to install <a target="_blank" href="https://metamask.io/">MetaMask</a> before!</h2>');
+                $('.address_section').html('<br/><p>But you can try an example <a href="https://qsvtr.github.io/avax-fees/?a=0xe35c047764766f3c51bc4a52e7262e64c72e22e8">here</a> :)</p>');
+                $(".fees_topic").html('');
+                $(".tokens_topic").html('');
+                return
             }
         }
+        $('.address_section').html(`<br/><p>Connected to <span id="address"><b>${address}</b></span></p><br/>`)
+        $(".infos").html('')
+        $(".fees_topic").css('display', 'block');
+        $(".tokens_topic").css('display','block');
+        await main(address)
     });
 </script>
 <!-- Matomo -->
@@ -148,12 +167,12 @@
     })();
 </script>
 <!-- End Matomo Code -->
+
 </body>
 <footer>
     <p>
         <span>2021 - Powered by <a target="_blank" href="https://www.covalenthq.com/">Covalent</a> and <a
-                target="_blank" href="https://www.coingecko.com/">Coingecko</a> API with ❤️ - <a target="_blank"
-                                                                                                 href="https://twitter.com/qsvtr">@qsvtr</a></span><br/>
+                target="_blank" href="https://www.coingecko.com/">Coingecko</a> API with ❤️ - <a target="_blank"href="https://twitter.com/qsvtr">@qsvtr</a></span><br/>
         <span>template used: <a target="_blank" href="https://github.com/nostalgic-css/NES.css">NES.css</a></span>
     </p>
 </footer>
