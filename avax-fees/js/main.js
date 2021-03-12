@@ -24,7 +24,6 @@ const onDownload = async () => {
 }
 
 const onClickMenu = (buttonID) => {
-    console.log(buttonID)
     let list_div = ['fees_topic', 'transactions_topic', 'wallet_topic', 'roadmap_topic', 'tipme_topic']
     list_div = list_div.filter(e => e !== buttonID)
     $('.'+buttonID).css('display', 'block');

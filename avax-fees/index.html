@@ -39,9 +39,12 @@
     <div class="container">
         <main class="main-content">
 
+            <section class="infos_topic"></section>
+
             <section class="address_section"></section>
 
-            <section class="menu_topic">
+            <!-- menu section -->
+            <section class="menu_topic" style="display:none">
                 <section class="showcase">
                     <section class="nes-container with-title" style="text-align: center">
                         <h1 class="title">Menu</h1>
@@ -53,8 +56,6 @@
                     </section>
                 </section>
             </section>
-
-            <section class="infos_topic"></section>
 
             <!-- fees section -->
             <section class="fees_topic" style="display:none">
@@ -192,7 +193,7 @@
     });
 
     window.addEventListener('load', async () => {
-        $(".infos").html('<h2>Connecting to Metamask<span class="loading"></span></h2>')
+        $(".infos_topic").html('<h2>Connecting to Metamask<span class="loading"></span></h2>')
         const params = getUrlVars();
         let address = params.address || params.a || null;
         if (!address) {
@@ -200,8 +201,8 @@
                 const addresses = await ethereum.request({method: 'eth_requestAccounts'});
                 address = addresses[0]
             } else {
-                console.log('no metamask no address')
-                $('.infos').html('<h2>Oops you need to install <a target="_blank" href="https://metamask.io/">MetaMask</a> before!</h2>');
+                console.log('test 1')
+                $('.infos_topic').html('<h2>Oops you need to install <a target="_blank" href="https://metamask.io/">MetaMask</a> before!</h2>');
                 $('.address_section').html('<br/><p>But you can try an example <a href="https://qsvtr.github.io/avax-fees/?a=0xe35c047764766f3c51bc4a52e7262e64c72e22e8">here</a> :)</p>');
                 $(".wallet_topic").html('');
                 $(".tokens_topic").html('');
@@ -209,7 +210,8 @@
             }
         }
         $('.address_section').html(`<br/><p>Connected to <span id="address"><b>${address}</b></span></p>`)
-        $(".infos").html('')
+        $(".infos_topic").html('')
+        $(".menu_topic").css('display', 'block');
         $(".fees_topic").css('display', 'block');
         // $(".wallet_topic").css('display','block');
         await main(address)
