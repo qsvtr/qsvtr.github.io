@@ -23,6 +23,14 @@ const onDownload = async () => {
     }
 }
 
+const onClickMenu = (buttonID) => {
+    console.log(buttonID)
+    let list_div = ['fees_topic', 'transactions_topic', 'wallet_topic', 'roadmap_topic', 'tipme_topic']
+    list_div = list_div.filter(e => e !== buttonID)
+    $('.'+buttonID).css('display', 'block');
+    list_div.forEach(e => $('.'+e).css('display', 'none'))
+}
+
 const getTransactions = async (address) => {
     const CHAIN_ID = 43114
     return await fetch(`https://api.covalenthq.com/v1/${CHAIN_ID}/address/${address}/transactions_v2/?page-number=0&page-size=999999999`)

@@ -38,10 +38,25 @@
 
     <div class="container">
         <main class="main-content">
-            <section class="infos"></section>
 
             <section class="address_section"></section>
 
+            <section class="menu_topic">
+                <section class="showcase">
+                    <section class="nes-container with-title" style="text-align: center">
+                        <h1 class="title">Menu</h1>
+                        <button onclick="onClickMenu('fees_topic')" type="button" class="nes-btn is-primary">fees</button>
+                        <button onclick="onClickMenu('transactions_topic')" type="button" class="nes-btn is-primary">transactions</button>
+                        <button onclick="onClickMenu('wallet_topic')" type="button" class="nes-btn is-primary">wallet</button>
+                        <button onclick="onClickMenu('roadmap_topic')" type="button" class="nes-btn is-primary">roadmap</button>
+                        <button onclick="onClickMenu('tipme_topic')" type="button" class="nes-btn is-primary">tip me</button>
+                    </section>
+                </section>
+            </section>
+
+            <section class="infos_topic"></section>
+
+            <!-- fees section -->
             <section class="fees_topic" style="display:none">
                 <section class="showcase">
                     <section class="nes-container with-title">
@@ -61,11 +76,24 @@
                 </section>
             </section>
 
-            <section class="tokens_topic" style="display:none">
+            <!-- transactions section -->
+            <section class="transactions_topic" style="display:none">
                 <section class="showcase">
                     <section class="nes-container with-title">
-                        <h1 class="title">Tokens</h1>
+                        <h1 class="title">Transactions</h1>
                         <a href="#" class="nes-badge" style="width: 15em"><span class="is-primary">in development</span></a>
+                        <p>list of transactions</p>
+                    </section>
+                </section>
+            </section>
+
+            <!-- wallet section -->
+            <section class="wallet_topic" style="display:none">
+                <section class="showcase">
+                    <section class="nes-container with-title">
+                        <h1 class="title">Wallet</h1>
+                        <a href="#" class="nes-badge" style="width: 15em"><span class="is-primary">in development</span></a>
+                        <p>list of your tokens (need to be listed on Coingecko to get price)</p>
 <!--
                         <div id="tables" class="item">
                             <div class="nes-table-responsive">
@@ -98,17 +126,54 @@
                 </section>
             </section>
 
-            <section class="fees_topic" style="display:none">
+            <!-- roadmap section -->
+            <section class="roadmap_topic" style="display:none">
                 <section class="showcase">
                     <section class="nes-container with-title">
                         <h1 class="title">Roadmap</h1>
                         <div class="lists">
-                            <ul class="nes-list is-disc">
-                                <li>get price of AVAX at time of transaction</li>
-                                <li>list transactions and type</li>
-                                <li>add the list of tokens in the wallet (but need token to be listed on Coingecko)</li>
-                                <li>do the same for X-Chain</li>
-                            </ul>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox" checked />
+                                <span>setting up the website structure</span>
+                            </label>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox" checked />
+                                <span>display fees for an address</span>
+                            </label>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox"/>
+                                <span>add list of transactions</span>
+                            </label><br>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox"/>
+                                <span>add list of tokens</span>
+                            </label>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox"/>
+                                <span>dark mode (not sure and very low priority)</span>
+                            </label>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox"/>
+                                <span>mobile view (really interesting?)</span>
+                            </label>
+                        </div>
+                    </section>
+                </section>
+            </section>
+
+            <!-- Tip me section -->
+            <section class="tipme_topic" style="display:none">
+                <section class="showcase">
+                    <section class="nes-container with-title">
+                        <h1 class="title">Tip me </h1>
+                        <div class="nes-container with-title is-centered">
+                            <p class="title">X Chain</p>
+                            <p>X-avax10cxspgyvk2gpdsn7pjj0d4hg2gpkcecxe730ap</p>
+                        </div>
+                        <br/>
+                        <div class="nes-container with-title is-centered">
+                            <p class="title">C Chain</p>
+                            <p>0xe35C047764766F3C51bc4a52E7262E64C72e22E8</p>
                         </div>
                     </section>
                 </section>
@@ -138,15 +203,15 @@
                 console.log('no metamask no address')
                 $('.infos').html('<h2>Oops you need to install <a target="_blank" href="https://metamask.io/">MetaMask</a> before!</h2>');
                 $('.address_section').html('<br/><p>But you can try an example <a href="https://qsvtr.github.io/avax-fees/?a=0xe35c047764766f3c51bc4a52e7262e64c72e22e8">here</a> :)</p>');
-                $(".fees_topic").html('');
+                $(".wallet_topic").html('');
                 $(".tokens_topic").html('');
                 return
             }
         }
-        $('.address_section').html(`<br/><p>Connected to <span id="address"><b>${address}</b></span></p><br/>`)
+        $('.address_section').html(`<br/><p>Connected to <span id="address"><b>${address}</b></span></p>`)
         $(".infos").html('')
         $(".fees_topic").css('display', 'block');
-        $(".tokens_topic").css('display','block');
+        // $(".wallet_topic").css('display','block');
         await main(address)
     });
 </script>
