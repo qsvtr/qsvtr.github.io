@@ -9,7 +9,7 @@ body {
 }
 
 #nescss > .container {
-    max-width: 980px;
+    max-width: 70%;
     margin: 0 auto;
     margin-top: 150px;
 }
@@ -308,14 +308,20 @@ td {
 }
 
 @media screen and (max-width: calc(980px - 4rem)) {
+    #nescss > .container {
+        max-width: 100%!important;
+    }
     header > .container {
         margin: 0 4rem;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1215px) {
+    #nescss > .container {
+        max-width: 100%!important;
+    }
     body {
-        margin: 2rem 0.5rem;
+        /*margin: 2rem 0.5rem;*/
         padding: 0;
     }
 
@@ -333,7 +339,11 @@ td {
 }
 
 @media screen and (max-width: 580px) {
+    .social-buttons {
+        display: none;
+    }
     #nescss > .container {
         margin-top: 190px;
+        max-width: 100%!important;
     }
 }

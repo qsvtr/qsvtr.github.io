@@ -2,13 +2,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>AVAX Fees</title>
+    <meta property="og:image" content="https://qsvtr.github.io/assets/screen.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="800">
     <link href="css/nes.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-          crossorigin="anonymous"/>
     <link rel="icon" href="assets/favicon.png">
+    <title>AVAX Fees</title>
 </head>
 <body>
 
@@ -18,9 +19,9 @@
             <div class="nav-brand">
                 <a href="https://qsvtr.github.io/avax-fees">
                     <img style="vertical-align: middle;" src="assets/avax_16.png" alt="avax-icon">
-                    <h3 style="display: inline-block;">AVAX Fees v0.1</h3>
+                    <h3 style="display: inline-block;">AVAX Fees v0.2</h3>
                 </a>
-                <p>Discover your fees </p>
+                <p>Discover your fees</p>
             </div>
 
             <div class="social-buttons">
@@ -62,15 +63,17 @@
                 <section class="showcase">
                     <section class="nes-container with-title">
                         <h1 class="title">Fees</h1>
-                        <section id="fees_box">
+                        <section class="loading">Loading</section>
+                        <section class="warning_loading">if it takes too long, please refresh</section>
+                        <section id="fees_box" style="display:none">
                             <div class="lists">
                                 <ul class="nes-list is-disc">
-                                    <li>Total fees: <span class="total_fees">loading<span class="loading"></span></span> </li>
-                                    <li>Total failed: <span class="total_failed">loading<span class="loading"></span></span></li>
+                                    <li>Total fees: <span class="total_fees"></span> </li>
+                                    <li>Total failed: <span class="total_failed"></span></li>
                                 </ul>
                             </div>
                             <br/>
-                            <p>* at current price: <span class="price">loading<span class="loading"></span></span></p>
+                            <p>* at current price: <span class="price"></span></p>
                             <span id="download"></span>
                         </section>
                     </section>
@@ -83,7 +86,26 @@
                     <section class="nes-container with-title">
                         <h1 class="title">Transactions</h1>
                         <a href="#" class="nes-badge" style="width: 15em"><span class="is-primary">in development</span></a>
-                        <p>list of transactions</p>
+                        <section class="loading">Loading</section>
+                        <div id="tables" class="item">
+                            <div class="nes-table-responsive">
+                                <table class="nes-table is-bordered is-centered" style="width: 99%; table-layout: auto;">
+                                    <thead>
+                                    <tr>
+                                        <th>type</th>
+                                        <th>token amount</th>
+                                        <th>token amount</th>
+                                        <th>time</th>
+                                        <th>tx</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="transaction_table">
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <!--<span class="nes-text is-warning">the prices of tokens not listed on Coingecko can't be displayed.</span>-->
+                            </div>
+                        </div>
                     </section>
                 </section>
             </section>
@@ -94,35 +116,28 @@
                     <section class="nes-container with-title">
                         <h1 class="title">Wallet</h1>
                         <a href="#" class="nes-badge" style="width: 15em"><span class="is-primary">in development</span></a>
-                        <p>list of your tokens (need to be listed on Coingecko to get price)</p>
-<!--
-                        <div id="tables" class="item">
+                        <!--
+                        <p>list of your tokens (need to be listed on Coingecko to get the price?)</p>
+                        <section class="loading">Loading</section>
+                        <div class="item">
                             <div class="nes-table-responsive">
-                                <table class="nes-table is-bordered is-centered">
+                                <table class="nes-table is-bordered is-centered" style="width: 99%; table-layout: auto;">
                                     <thead>
                                     <tr>
-                                        <th>token name</th>
+                                        <th>logo</th>
+                                        <th>token ticker</th>
                                         <th>quantity</th>
                                         <th>price unity</th>
                                         <th>total</th>
-                                        <th>check on Coingecko</th>
+                                        <th>contract</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>PNG</td>
-                                        <td>6</td>
-                                        <td>$5.34</td>
-                                        <td>$32.04</td>
-                                        <td>here</td>
-                                    </tr>
+                                    <tbody class="wallet_table">
                                     </tbody>
                                 </table>
                                 <br/>
-                                <span class="nes-text is-warning">the prices of tokens not listed on Coingecko can't be displayed.</span>
                             </div>
-                        </div>
-                        -->
+                        </div> -->
                     </section>
                 </section>
             </section>
@@ -136,26 +151,34 @@
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox" checked />
                                 <span>setting up the website structure</span>
-                            </label>
+                            </label><br>
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox" checked />
                                 <span>display fees for an address</span>
-                            </label>
+                            </label><br>
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox"/>
                                 <span>add list of transactions</span>
                             </label><br>
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox"/>
+                                <span>add button to connect on metamask or by url</span>
+                            </label><br>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox"/>
                                 <span>add list of tokens</span>
-                            </label>
+                            </label><br>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox"/>
+                                <span>add try catch to avoid stuck</span>
+                            </label><br>
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox"/>
                                 <span>dark mode (not sure and very low priority)</span>
-                            </label>
+                            </label><br>
                             <label>
-                                <input disabled type="checkbox" class="nes-checkbox"/>
-                                <span>mobile view (really interesting?)</span>
+                                <input disabled type="checkbox" class="nes-checkbox" checked/>
+                                <span>response view (need feedback)</span>
                             </label>
                         </div>
                     </section>
@@ -169,13 +192,15 @@
                         <h1 class="title">Tip me </h1>
                         <div class="nes-container with-title is-centered">
                             <p class="title">X Chain</p>
-                            <p>X-avax10cxspgyvk2gpdsn7pjj0d4hg2gpkcecxe730ap</p>
+                            <p>X-avax1je9jmf7cggy3gafkn52mrz3qg509rynrhfzkpy</p>
                         </div>
                         <br/>
                         <div class="nes-container with-title is-centered">
                             <p class="title">C Chain</p>
-                            <p>0xe35C047764766F3C51bc4a52E7262E64C72e22E8</p>
+                            <p>0xe35c047764766f3c51bc4a52e7262e64c72e22e8</p>
                         </div>
+                        <br/>
+                        <p>free to dm after a tip on <a href="https://t.me/qsvtr">Telegram</a> :)</p>
                     </section>
                 </section>
             </section>
@@ -183,63 +208,18 @@
     </div>
 </div>
 
-<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="js/vendor/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/matomo.js"></script>
 <!--<script src="js/web3.min.js"></script>-->
-<script>
-    $(window).scroll(function () {
-        const scroll = $(window).scrollTop();
-        scroll > 50 ? $("#nav_bar").addClass("sticky") : $("#nav_bar").removeClass("sticky")
-    });
-
-    window.addEventListener('load', async () => {
-        $(".infos_topic").html('<h2>Connecting to Metamask<span class="loading"></span></h2>')
-        const params = getUrlVars();
-        let address = params.address || params.a || null;
-        if (!address) {
-            if (window.hasOwnProperty("ethereum") && window.ethereum.hasOwnProperty("isMetaMask")) {
-                const addresses = await ethereum.request({method: 'eth_requestAccounts'});
-                address = addresses[0]
-            } else {
-                console.log('test 1')
-                $('.infos_topic').html('<h2>Oops you need to install <a target="_blank" href="https://metamask.io/">MetaMask</a> before!</h2>');
-                $('.address_section').html('<br/><p>But you can try an example <a href="https://qsvtr.github.io/avax-fees/?a=0xe35c047764766f3c51bc4a52e7262e64c72e22e8">here</a> :)</p>');
-                $(".wallet_topic").html('');
-                $(".tokens_topic").html('');
-                return
-            }
-        }
-        $('.address_section').html(`<br/><p>Connected to <span id="address"><b>${address}</b></span></p>`)
-        $(".infos_topic").html('')
-        $(".menu_topic").css('display', 'block');
-        $(".fees_topic").css('display', 'block');
-        // $(".wallet_topic").css('display','block');
-        await main(address)
-    });
-</script>
-<!-- Matomo -->
-<script type="text/javascript">
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-    _paq.push(["setCookieDomain", "*.qsvtr.github.io"]);
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-        var u="//dev.qsvtr.fr/matomo/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '2']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-</script>
-<!-- End Matomo Code -->
-
 </body>
 <footer>
     <p>
-        <span>2021 - Powered by <a target="_blank" href="https://www.covalenthq.com/">Covalent</a> and <a
-                target="_blank" href="https://www.coingecko.com/">Coingecko</a> API with ❤️ - <a target="_blank"href="https://twitter.com/qsvtr">@qsvtr</a></span><br/>
+        <span>2021 - Powered by <a target="_blank" href="https://www.covalenthq.com/">Covalent</a> and
+            <a target="_blank" href="https://www.coingecko.com/">Coingecko</a> API with ❤️ -
+            <a target="_blank"href="https://twitter.com/qsvtr">@qsvtr</a></span><br/>
         <span>template used: <a target="_blank" href="https://github.com/nostalgic-css/NES.css">NES.css</a></span>
     </p>
 </footer>
