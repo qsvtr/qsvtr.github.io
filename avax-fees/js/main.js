@@ -25,7 +25,7 @@ const fillTransactionsTable = async (transactions) => {
                 t_line+=`<td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>explorer</a></td></tr>`
                 $('.transaction_table').append(t_line)*/
             } else {
-                const fee = (t.gas_spent*t.gas_price/10**18).toFixed(2)
+                const fee = (t.gas_spent*t.gas_price/10**18).toFixed(3)
                 const date = t.block_signed_at.split('T')[0]
                 if (t.log_events[0].decoded.name === 'Withdrawal' && t.log_events[1].decoded.name === 'Swap') {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
@@ -40,8 +40,8 @@ const fillTransactionsTable = async (transactions) => {
                         price2 = (t.log_events[1].decoded.params[3].value/10**token2.contract_decimals).toFixed(2)
                     }
                     let t_line = `<tr><td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>swap ${token1.contract_ticker_symbol} for ${token2.contract_ticker_symbol}</a></td>`
-                    t_line+=`<td>$${price1} ${token1.contract_ticker_symbol}</td><td>$${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
-                    t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} $AVAX</td></tr>`
+                    t_line+=`<td>${price1} ${token1.contract_ticker_symbol}</td><td>${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
+                    t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} AVAX</td></tr>`
                     $('.transaction_table').append(t_line)
                 } else if (tx.decoded.name === 'Swap') {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
@@ -56,8 +56,8 @@ const fillTransactionsTable = async (transactions) => {
                         price2 = (tx.decoded.params[3].value/10**token2.contract_decimals).toFixed(2)
                     }
                     let t_line = `<tr><td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>swap ${token1.contract_ticker_symbol} for ${token2.contract_ticker_symbol}</a></td>`
-                    t_line+=`</td><td>$${price1} ${token1.contract_ticker_symbol}</td><td>$${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
-                    t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} $AVAX</td></tr>`
+                    t_line+=`</td><td>${price1} ${token1.contract_ticker_symbol}</td><td>${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
+                    t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} AVAX</td></tr>`
                     $('.transaction_table').append(t_line)
                 } else if (tx.decoded.name === 'Mint') {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
@@ -66,8 +66,8 @@ const fillTransactionsTable = async (transactions) => {
                     const price1 = t.log_events[4].decoded.params[2] ? (t.log_events[4].decoded.params[2].value/10**token1.contract_decimals).toFixed(2) : (t.log_events[4].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
                     const price2 = (t.log_events[t.log_events.length-1].decoded.params[2].value/10**token2.contract_decimals).toFixed(2)
                     let t_line = `<tr><td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>add ${token1.contract_ticker_symbol} and ${token2.contract_ticker_symbol}</a></td>`
-                    t_line+=`</td><td>$${price1} ${token1.contract_ticker_symbol}</td><td>$${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
-                    t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} $AVAX</td></tr>`
+                    t_line+=`</td><td>${price1} ${token1.contract_ticker_symbol}</td><td>${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
+                    t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} AVAX</td></tr>`
                     $('.transaction_table').append(t_line)
                 } else if (tx.decoded.name === 'Withdrawal') {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[t.log_events.length-1].sender_address)
@@ -76,8 +76,8 @@ const fillTransactionsTable = async (transactions) => {
                     const price1 = (t.log_events[0].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
                     const price2 = (t.log_events[1].decoded.params[2].value/10**token2.contract_decimals).toFixed(2)
                     let t_line = `<tr><td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>remove ${token1.contract_ticker_symbol} and ${token2.contract_ticker_symbol}</a></td>`
-                    t_line+=`</td><td>$${price1} ${token1.contract_ticker_symbol}</td><td>$${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
-                    t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} $AVAX</td></tr>`
+                    t_line+=`</td><td>${price1} ${token1.contract_ticker_symbol}</td><td>${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
+                    t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} AVAX</td></tr>`
                     $('.transaction_table').append(t_line)
                 }
                 /* not interesting
