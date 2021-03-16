@@ -8,8 +8,16 @@ body {
     margin: 0 2rem;
 }
 
+.transaction_table {
+    font-size: 14px;
+}
+
+#fees_box {
+ font-size: 18px;
+}
+
 #nescss > .container {
-    max-width: 70%;
+    max-width: 75%;
     margin: 0 auto;
     margin-top: 150px;
 }

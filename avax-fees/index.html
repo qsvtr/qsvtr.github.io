@@ -65,12 +65,10 @@
                         <h1 class="title">Fees</h1>
                         <section class="loading">Loading</section>
                         <section class="warning_loading">if it takes too long, please refresh</section>
-                        <section id="fees_box" style="display:none">
+                        <section id="fees_box" style="display:none; text-align:center;">
                             <div class="lists">
-                                <ul class="nes-list is-disc">
-                                    <li>Total fees: <span class="total_fees"></span> </li>
-                                    <li>Total failed: <span class="total_failed"></span></li>
-                                </ul>
+                                <p>Total fees: <span class="total_fees"></span> </p>
+                                <p>Total failed: <span class="total_failed"></span></p>
                             </div>
                             <br/>
                             <p>* at current price: <span class="price"></span></p>
@@ -85,7 +83,7 @@
                 <section class="showcase">
                     <section class="nes-container with-title">
                         <h1 class="title">Transactions</h1>
-                        <a href="#" class="nes-badge" style="width: 15em"><span class="is-primary">in development</span></a>
+                        <!--<a href="#" class="nes-badge" style="width: 15em"><span class="is-primary">in development</span></a>-->
                         <section class="loading">Loading</section>
                         <div id="tables" class="item">
                             <div class="nes-table-responsive">
@@ -96,7 +94,8 @@
                                         <th>token amount</th>
                                         <th>token amount</th>
                                         <th>time</th>
-                                        <th>tx</th>
+                                        <th>dex</th>
+                                        <th>fees</th>
                                     </tr>
                                     </thead>
                                     <tbody class="transaction_table">
@@ -157,16 +156,24 @@
                                 <span>display fees for an address</span>
                             </label><br>
                             <label>
-                                <input disabled type="checkbox" class="nes-checkbox"/>
+                                <input disabled type="checkbox" class="nes-checkbox" checked/>
+                                <span>response view (need feedback)</span>
+                            </label><br>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox" checked/>
                                 <span>add list of transactions</span>
                             </label><br>
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox"/>
-                                <span>add button to connect on metamask or by url</span>
+                                <span>add list of tokens</span>
                             </label><br>
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox"/>
-                                <span>add list of tokens</span>
+                                <span>add functionalities in the transactions table (sort by type, date, etc.)</span>
+                            </label><br>
+                            <label>
+                                <input disabled type="checkbox" class="nes-checkbox"/>
+                                <span>add button to connect on metamask or by url</span>
                             </label><br>
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox"/>
@@ -175,10 +182,6 @@
                             <label>
                                 <input disabled type="checkbox" class="nes-checkbox"/>
                                 <span>dark mode (not sure and very low priority)</span>
-                            </label><br>
-                            <label>
-                                <input disabled type="checkbox" class="nes-checkbox" checked/>
-                                <span>response view (need feedback)</span>
                             </label>
                         </div>
                     </section>
