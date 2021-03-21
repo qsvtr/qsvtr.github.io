@@ -26,5 +26,5 @@ const getTokenPrice = async (tokenId) => {
 getARC20Tokens = async () => {
     return await fetch('https://api.covalenthq.com/v1/43114/tokens/tokenlists/all/?page-size=9999999')
         .then(res => res.json())
-        .catch(err => {})
+        .catch(err => null)
 }

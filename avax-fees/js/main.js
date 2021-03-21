@@ -62,7 +62,9 @@ const fillTransactionsTable = async (transactions) => {
                 } else if (tx.decoded.name === 'Mint') {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
                     const token1 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[4].sender_address)
-                    const token2 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[t.log_events.length-1].sender_address)
+                    const test = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[t.log_events.length-1].sender_address)
+                    const token2 = test ? test : getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[t.log_events.length-2].sender_address)
+                    // need this shit when a pair is created
                     const price1 = t.log_events[4].decoded.params[2] ? (t.log_events[4].decoded.params[2].value/10**token1.contract_decimals).toFixed(2) : (t.log_events[4].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
                     const price2 = (t.log_events[t.log_events.length-1].decoded.params[2].value/10**token2.contract_decimals).toFixed(2)
                     let t_line = `<tr><td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>add ${token1.contract_ticker_symbol} and ${token2.contract_ticker_symbol}</a></td>`
@@ -151,7 +153,8 @@ window.addEventListener('load', async () => {
 
     $(".infos_topic").html('<h2>fetching tokens<span class="loading"></span></h2>')
     ARC20TOKENS = await getARC20Tokens();
-    if (!ARC20TOKENS.data) {
+    console.log(ARC20TOKENS)
+    if (!ARC20TOKENS) {
         console.log('error fatal')
         $(".infos_topic").html('<h2>FATAL ERROR: can\'t retrieve tokens :(</h2>')
         return
