@@ -15,7 +15,8 @@ const getDexName = (contract) => contract.contract_name.split(' ')[0]
 
 const fillTransactionsTable = async (transactions) => {
     transactions.items.forEach(t => {
-        if (t.successful) {
+        //console.log(t)
+        if (t.successful && t.log_events.length > 0 && t.log_events[0].decoded && t.log_events[1]) {
             const tx = t.log_events[0]
             if (!tx) {
                 //console.log(t)
@@ -27,6 +28,7 @@ const fillTransactionsTable = async (transactions) => {
             } else {
                 const fee = (t.gas_spent*t.gas_price/10**18).toFixed(3)
                 const date = t.block_signed_at.split('T')[0]
+                //console.log(t)
                 if (t.log_events[0].decoded.name === 'Withdrawal' && t.log_events[1].decoded.name === 'Swap') {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
                     const token1 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[t.log_events.length-1].sender_address)
