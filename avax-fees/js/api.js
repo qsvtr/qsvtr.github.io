@@ -10,10 +10,7 @@ const getTokensWallet = async (address) => {
 const getTransactions = async (address) => {
     return await fetch(`https://api.covalenthq.com/v1/43114/address/${address}/transactions_v2/?page-number=0&page-size=999999999`)
         .then(res => res.json())
-        .catch(err => {
-            console.log('error:', err)
-            return {}
-        });
+        .catch(err => null);
 }
 
 const getTokenPrice = async (tokenId) => {

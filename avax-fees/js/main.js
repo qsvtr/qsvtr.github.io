@@ -47,14 +47,8 @@ const fillTransactionsTable = async (transactions) => {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
                     const token1 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[3].sender_address)
                     const token2 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[2].sender_address)
-                    let price1, price2 = 0
-                    if (tx.decoded.params[1].value !== '0') {
-                        price1 = (tx.decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
-                        price2 = (tx.decoded.params[4].value/10**token2.contract_decimals).toFixed(2)
-                    } else if (tx.decoded.params[2].value !== '0') {
-                        price1 = (tx.decoded.params[2].value/10**token1.contract_decimals).toFixed(2)
-                        price2 = (tx.decoded.params[3].value/10**token2.contract_decimals).toFixed(2)
-                    }
+                    const price1 = (t.log_events[3].decoded.params[2].value/10**token1.contract_decimals).toFixed(2)
+                    const price2 = (t.log_events[2].decoded.params[2].value/10**token2.contract_decimals).toFixed(2).toLocaleString()
                     let t_line = `<tr><td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>swap ${token1.contract_ticker_symbol} for ${token2.contract_ticker_symbol}</a></td>`
                     t_line+=`</td><td>${price1} ${token1.contract_ticker_symbol}</td><td>${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
                     t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} AVAX</td></tr>`
@@ -127,8 +121,8 @@ const fillWalletTable = async (address) => {
 
 const main = async (address) => {
     const transactions = await getTransactions(address)
-    if (!transactions.data || transactions.error) {
-        $("#fees_box").html("<p>Oops we can't fetch the data. Please try again or retry later.</p>")
+    if (!transactions || transactions.error) {
+        $("#fees_box").html("<p>Oops we can't fetch the data from Covalent. Please try again or retry later.</p>")
         return
     }
     let total_fees = 0
@@ -150,13 +144,11 @@ const main = async (address) => {
 }
 
 window.addEventListener('load', async () => {
-
     $(".infos_topic").html('<h2>fetching tokens<span class="loading"></span></h2>')
     ARC20TOKENS = await getARC20Tokens();
-    console.log(ARC20TOKENS)
-    if (!ARC20TOKENS) {
+    if (!ARC20TOKENS || ARC20TOKENS.error) {
         console.log('error fatal')
-        $(".infos_topic").html('<h2>FATAL ERROR: can\'t retrieve tokens :(</h2>')
+        $(".infos_topic").html('<h2>FATAL ERROR: we can\'t retrieve tokens from Covalent API :(</h2>')
         return
     }
     $(".infos_topic").html('<h2>Connecting to Metamask<span class="loading"></span></h2>')
