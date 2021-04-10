@@ -46,21 +46,18 @@ const fillTransactionsTable = async (transactions) => {
                     t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} AVAX</td></tr>`
                     $('.transaction_table').append(t_line)
                 } else if (tx.decoded.name === 'Swap') {
-                    console.log(t)
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
                     const token1 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[3].sender_address)
                     const token2 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[2].sender_address)
-                    let price1 = (t.log_events[3].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
+                    let price1 = (t.log_events[0].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
                     if (price1 == 0) {
-                        console.log('nul')
                         price1 = (t.log_events[3].decoded.params[2].value/10**token1.contract_decimals).toFixed(2)
                     }
-                    const price2 = (t.log_events[2].decoded.params[2].value/10**token2.contract_decimals).toFixed(2).toLocaleString()
+                    const price2 = (t.log_events[0].decoded.params[4].value/10**token2.contract_decimals).toFixed(2).toLocaleString()
                     let t_line = `<tr><td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>swap ${token1.contract_ticker_symbol} for ${token2.contract_ticker_symbol}</a></td>`
                     t_line+=`</td><td>${price1} ${token1.contract_ticker_symbol}</td><td>${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
                     t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} AVAX</td></tr>`
                     $('.transaction_table').append(t_line)
-                    console.log(price1, token1.contract_ticker_symbol, price2, token2.contract_ticker_symbol)
                 } else if (tx.decoded.name === 'Mint') {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
                     const token1 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[4].sender_address)
