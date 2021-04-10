@@ -30,6 +30,7 @@ const fillTransactionsTable = async (transactions) => {
                 const date = t.block_signed_at.split('T')[0]
                 //console.log(t)
                 if (t.log_events[0].decoded.name === 'Withdrawal' && t.log_events[1].decoded.name === 'Swap') {
+                    //console.log(t)
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
                     const token1 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[t.log_events.length-1].sender_address)
                     const token2 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[3].sender_address)
@@ -38,6 +39,7 @@ const fillTransactionsTable = async (transactions) => {
                         price1 = (t.log_events[1].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
                         price2 = (t.log_events[1].decoded.params[4].value/10**token2.contract_decimals).toFixed(2)
                     } else if (t.log_events[1].decoded.params[2].value !== '0') {
+                        console.log('null')
                         price1 = (t.log_events[1].decoded.params[2].value/10**token1.contract_decimals).toFixed(2)
                         price2 = (t.log_events[1].decoded.params[3].value/10**token2.contract_decimals).toFixed(2)
                     }
@@ -49,11 +51,17 @@ const fillTransactionsTable = async (transactions) => {
                     const dex_contract = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[1].sender_address)
                     const token1 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[3].sender_address)
                     const token2 = getTokenByContractAddress(ARC20TOKENS.data.items, t.log_events[2].sender_address)
-                    let price1 = (t.log_events[0].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
-                    if (price1 == 0) {
-                        price1 = (t.log_events[3].decoded.params[2].value/10**token1.contract_decimals).toFixed(2)
+                    //const price1 = (t.log_events[0].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
+                    //const price2 = (t.log_events[0].decoded.params[4].value/10**token2.contract_decimals).toFixed(2).toLocaleString()
+                    let price1, price2 = 0
+                    if (t.log_events[1].decoded.params[1].value !== '0') {
+                        price1 = (t.log_events[0].decoded.params[1].value/10**token1.contract_decimals).toFixed(2)
+                        price2 = (t.log_events[0].decoded.params[4].value/10**token2.contract_decimals).toFixed(2)
+                    } else if (t.log_events[0].decoded.params[2].value !== '0') {
+                        console.log('null')
+                        price1 = (t.log_events[0].decoded.params[2].value/10**token1.contract_decimals).toFixed(2)
+                        price2 = (t.log_events[0].decoded.params[3].value/10**token2.contract_decimals).toFixed(2)
                     }
-                    const price2 = (t.log_events[0].decoded.params[4].value/10**token2.contract_decimals).toFixed(2).toLocaleString()
                     let t_line = `<tr><td><a target="_blank" href='https://cchain.explorer.avax.network/tx/${tx.tx_hash}'>swap ${token1.contract_ticker_symbol} for ${token2.contract_ticker_symbol}</a></td>`
                     t_line+=`</td><td>${price1} ${token1.contract_ticker_symbol}</td><td>${price2} ${token2.contract_ticker_symbol}</td><td>${date}</td>`
                     t_line+=`<td>${getDexName(dex_contract)}</td><td>${fee} AVAX</td></tr>`
