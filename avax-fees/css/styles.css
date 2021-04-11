@@ -87,7 +87,7 @@ footer {
     margin-bottom: 2rem;
 }
 footer a {
-    color: #333;
+    color: #1e73f6;
     text-decoration: none;
 }
 
@@ -270,7 +270,7 @@ h3.topic-title > i {
 
 /* Articles */
 .article-link > .title a {
-    color: #333;
+    color: #333333;
 }
 .article-link > .title span {
     margin-left: 1rem;

@@ -1,0 +1,33 @@
+body {
+    --text-color: #222;
+    --bkg-color: #fff;
+}
+body.dark-theme {
+    --text-color: #f0ece2;
+    --bkg-color: #222831;
+}
+
+@media (prefers-color-scheme: dark) {
+    /* defaults to dark theme */
+    body {
+        --text-color: #f0ece2;
+        --bkg-color: #222831;
+    }
+    body.light-theme {
+        --text-color: #222;
+        --bkg-color: #fff;
+    }
+}
+
+body, header {
+    background: var(--bkg-color);
+}
+
+h1, h2, h3, p {
+    color: var(--text-color);
+}
+
+.loading, .warning_loading, .nes-container.with-title>.title, .nes-table, .lists, input[type='checkbox'] {
+    color: var(--text-color);
+    background-color: var(--bkg-color);
+}
