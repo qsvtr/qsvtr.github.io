@@ -1,5 +1,5 @@
 const getTokensWallet = async (address) => {
-    return await fetch(`https://api.covalenthq.com/v1/43114/address/${address}/balances_v2/`)
+    return await fetch(`https://api.covalenthq.com/v1/43114/address/${address}/balances_v2/&key=ckey_cad8243d6f7d48c3b5923c9cdf1`)
         .then(res => res.json())
         .catch(err => {
             console.log('error:', err)
@@ -8,7 +8,7 @@ const getTokensWallet = async (address) => {
 }
 
 const getTransactions = async (address) => {
-    return await fetch(`https://api.covalenthq.com/v1/43114/address/${address}/transactions_v2/?page-number=0&page-size=999999999`)
+    return await fetch(`https://api.covalenthq.com/v1/43114/address/${address}/transactions_v2/?page-number=0&page-size=999999999&key=ckey_cad8243d6f7d48c3b5923c9cdf1`)
         .then(res => res.json())
         .catch(err => null);
 }
@@ -21,7 +21,7 @@ const getTokenPrice = async (tokenId) => {
 }
 
 getARC20Tokens = async () => {
-    return await fetch('https://api.covalenthq.com/v1/43114/tokens/tokenlists/all/?page-size=9999999')
+    return await fetch('https://api.covalenthq.com/v1/43114/tokens/tokenlists/all/?page-size=9999999&key=ckey_cad8243d6f7d48c3b5923c9cdf1')
         .then(res => res.json())
         .catch(err => null)
 }
