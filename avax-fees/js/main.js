@@ -166,7 +166,7 @@ const main = async (address) => {
         }
     })
     const avax_price = await getTokenPrice('avalanche-2')
-    await fillTransactionsTable(transactions.data)
+    // await fillTransactionsTable(transactions.data)
     // await fillWalletTable(address)
     $('.total_fees').html(` <b>${total_fees.toFixed(2)} AVAX</b> for ${transactions.data.items.length} transactions - <b>$${(total_fees*avax_price).toFixed(2)}*</b>`)
     $('.total_failed').html(` ${total_fees_failed.number} failed for ${total_fees_failed.gas.toFixed(2)} AVAX`)
@@ -176,16 +176,18 @@ const main = async (address) => {
 
 window.addEventListener('load', async () => {
     $(".infos_topic").html('<h2>fetching tokens<span class="loading"></span></h2>')
+    /*
     ARC20TOKENS = await getARC20Tokens();
     if (!ARC20TOKENS || ARC20TOKENS.error) {
         console.log('error fatal')
         $(".infos_topic").html('<h2>FATAL ERROR: we can\'t retrieve tokens from Covalent API :(</h2>')
         return
-    }
+    }*/
     $(".infos_topic").html('<h2>Connecting to Metamask<span class="loading"></span></h2>')
     const params = getUrlVars();
     let address = params.address || params.a || null;
     if (!address) {
+        console.log(window.hasOwnProperty("ethereum"))
         if (window.hasOwnProperty("ethereum") && window.ethereum.hasOwnProperty("isMetaMask")) {
             const addresses = await ethereum.request({method: 'eth_requestAccounts'});
             address = addresses[0]
