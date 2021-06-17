@@ -1,6 +1,7 @@
 body {
     --text-color: #222;
     --bkg-color: #fff;
+    word-break: break-word;
 }
 body.dark-theme {
     --text-color: #f0ece2;

@@ -144,6 +144,7 @@ const fillWalletTable = async (address) => {
     const tokens = await getTokensWallet(address)
     if (tokens.data) {
         tokens.data.items.forEach(token => {
+            console.log(token)
             const contract = token.contract_address.substring(0, 6) + '...' + token.contract_address.substring(token.contract_address.length-4, token.contract_address.length)
             $('.wallet_table').append(`<tr><td><img src="${token.logo_url}" alt="icon"></td><td>${token.contract_ticker_symbol}</td><td>${token.balance}</td><td>X</td><td>X</td><td><a href="">${contract}</a></td></tr>`)
         })

@@ -1,5 +1,5 @@
 const getTokensWallet = async (address) => {
-    return await fetch(`https://api.covalenthq.com/v1/43114/address/${address}/balances_v2/&key=ckey_cad8243d6f7d48c3b5923c9cdf1`)
+    return await fetch(`https://api.covalenthq.com/v1/43114/address/${address}/balances_v2/?key=ckey_cad8243d6f7d48c3b5923c9cdf1`)
         .then(res => res.json())
         .catch(err => {
             console.log('error:', err)
