@@ -159,7 +159,9 @@ const main = async (address) => {
     let total_fees = 0
     let total_fees_failed = {number:0, gas:0}
     transactions.data.items.forEach(el => {
-        total_fees += el.gas_price*el.gas_spent/1E18
+        if (el.gas_price < 10**12) {
+            total_fees += el.gas_price*el.gas_spent/1E18
+        }
         if (!el.successful) {
             total_fees_failed.number++
             total_fees_failed.gas += el.gas_price*el.gas_spent/1E18
